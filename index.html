@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Cookie Account Demo</title>
+</head>
+<body>
+  <h1 id="welcome"></h1>
+
+  <script>
+    // Generate a random name (simple example)
+    function generateName() {
+      const animals = ["Fox", "Tiger", "Panda", "Wolf", "Bear", "Eagle"];
+      const adj = ["Happy", "Quick", "Brave", "Sunny", "Clever", "Calm"];
+      const randAdj = adj[Math.floor(Math.random() * adj.length)];
+      const randAnimal = animals[Math.floor(Math.random() * animals.length)];
+      const randNum = Math.floor(Math.random() * 1000);
+      return `${randAdj}${randAnimal}${randNum}`;
+    }
+
+    // Cookie helpers
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const cname = name + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(cname) === 0) {
+          return c.substring(cname.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    // Check for account cookie
+    let accountName = getCookie("accountName");
+    if (!accountName) {
+      accountName = generateName();
+      setCookie("accountName", accountName, 365); // 1 year
+    }
+
+    // Show greeting
+    document.getElementById("welcome").textContent = "Welcome, " + accountName + "!";
+  </script>
+</body>
+</html>
