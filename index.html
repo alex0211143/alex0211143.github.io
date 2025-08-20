@@ -1,0 +1,57 @@
+<script type="module">
+  // Import Firebase functions
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  // 🔹 Your Firebase config (use your own values)
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-ZSpc1YHdrdbtTjLB5Ke8b8Zc7euKlFE",
+    authDomain: "sandbloxgame.firebaseapp.com",
+    projectId: "sandbloxgame",
+    storageBucket: "sandbloxgame.firebasestorage.app",
+    messagingSenderId: "581028863173",
+    appId: "1:581028863173:web:d35edbe8016a4629f724ac"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // 🔹 Signup function
+  async function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      document.getElementById("message").textContent = "✅ Account created!";
+    } catch (error) {
+      document.getElementById("message").textContent = "❌ " + error.message;
+    }
+  }
+
+  // 🔹 Login function
+  async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      document.getElementById("message").textContent = "✅ Logged in!";
+      // Example redirect after login:
+      // window.location.href = "profile.html";
+    } catch (error) {
+      document.getElementById("message").textContent = "❌ " + error.message;
+    }
+  }
+
+  // 🔹 Logout function (optional)
+  async function logout() {
+    await signOut(auth);
+    document.getElementById("message").textContent = "🚪 Logged out!";
+  }
+
+  // Make functions available to HTML buttons
+  window.signup = signup;
+  window.login = login;
+  window.logout = logout;
+</script>
