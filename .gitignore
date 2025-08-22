@@ -1,0 +1,20 @@
+# Unity temp and cache folders (ignore these)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Visual Studio / IDE files
+.vscode/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.suo
+*.unityproj
+*.booproj
+
+# OS generated files
+.DS_Store
+Thumbs.db
